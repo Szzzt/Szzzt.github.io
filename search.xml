@@ -4,11 +4,24 @@
   
     
     <entry>
+      <title>字符串匹配kmp</title>
+      <link href="/2023/09/14/2023-9-14-kmp%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90/"/>
+      <url>/2023/09/14/2023-9-14-kmp%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<h2 id="字符串匹配kmp总结"><a href="#字符串匹配kmp总结" class="headerlink" title="字符串匹配kmp总结"></a>字符串匹配kmp总结</h2><p>给定字符串 S  （长度为M）     一个模式串 P</p><p>模式串 P （长度为N），在字符串 S 中多次作为子串出现。求出模式串 P在字符串 S 中所有出现的位置的起始下标。</p><p>数据范围<br>1≤N≤10e5<br>1≤M≤10e6</p><p>为了写代码便利， 下标均从1开始。</p><p><strong>eg:</strong>   <strong>1</strong>   <strong>2</strong>    <strong>3</strong>    <strong>4</strong>    <strong>5</strong>    <strong>6</strong>      <strong>7</strong>    <strong>8</strong>   <br><strong>S</strong>     <strong>A</strong>   <strong>B</strong>    <strong>A</strong>    <strong>B</strong>    <strong>A</strong>    <strong>B</strong>      <strong>C</strong><br><strong>P</strong>     <strong>A</strong>   <strong>B</strong>    <strong>B</strong>    <strong>B</strong>    <strong>A</strong>    <strong>B</strong>      <strong>A</strong>    <strong>B</strong><br><strong>ne</strong>    <strong>0</strong>   <strong>0</strong>    <strong>1</strong>    <strong>2</strong>    <strong>3</strong>    <strong>4</strong>      <strong>5</strong>    <strong>6</strong></p><p><strong>一： 此处需要建立一个 next[ j ]数组,  next[ j ] 用来记录 p[1,  j] 的前缀和后缀最大长度    即       p[1, next[ j ] ] &#x3D; p[ j - next[ j ]+1  ,  j ]</strong></p><p>手动模拟： next[1]   前缀： 空集                         后缀： 空集               0</p><p>          next[2]  前缀： { A }                         后缀： { B }              0</p><p>          next[3]   前缀： {A,  AB}                     后缀： {A,BA}              1</p><p>          next[4]    前缀： {A，AB，ABA}                后缀： {B, AB, BAB}          2  </p><p>          next[5]     前缀：{A, AB, ABA, ABAB}          后缀： {A , BA, ABA, BABA}   3<br>             ……                                           ……         </p><p>                 <br><strong>二： 匹配思路和代码</strong><br><img src="https://s2.loli.net/2023/09/14/bQZM5eR913wkh2r.png" alt="思路"><br>（画图水平有限（doge）</p><p>S从a开始匹配到b ,直到位置 i,   此时S[ i ] !&#x3D; P[ j +1]   ， 注意此时不是将 p的指针j移动至 串头，而是直接移动至下次能匹配到的位置， 那么这个位置在哪呢， 就在next [ j ]里 由于1串&#x3D;&#x3D;3串，    3串&#x3D;&#x3D; 2串，  所以移动p串 使1 到3 的位置 。  即j&#x3D; next[ j ]</p><p>code: </p><pre><code class="C++">#include &lt;string&gt;#include &lt;iostream&gt;using namespace std;const int N=100010, M=1000010;char p[N], s[M];  // 1-Nint n,m;int ne[N];int main()&#123;    cin &gt;&gt; n &gt;&gt; p+1 &gt;&gt; m &gt;&gt; s+1;    //创建 next 数组     ne[1]=0;    for(int i=2, j=0; i&lt;=n; i++)    &#123;        while(j &amp;&amp; p[i]!= p[j+1]) j=ne[j];        if (p[i]==p[j+1]) j++;        ne[i]=j;    &#125;        //开始匹配    for(int i=1,j=0; i&lt;=m; i++)   // i从1 开始， j从0 开始     &#123;        while(j &amp;&amp; s[i]!=p[j+1]) j=ne[j];  // j为 0时退出循环， 模式串从头开始匹配         if (s[i]==p[j+1]) j++;              if(j==n)        &#123;            printf(&quot;%d &quot;,i-n);            j=ne[j];        &#125;    &#125;    return 0;    &#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第一篇文章</title>
       <link href="/2023/09/13/2023-9-13-%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
       <url>/2023/09/13/2023-9-13-%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
-        <content type="html"><![CDATA[<h2 id="新篇章"><a href="#新篇章" class="headerlink" title="新篇章"></a>新篇章</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="https-szzzt-github-io-问世！"><a href="#https-szzzt-github-io-问世！" class="headerlink" title="https://szzzt.github.io/ 问世！"></a><a href="https://szzzt.github.io/">https://szzzt.github.io/</a> 问世！</h2>]]></content>
       
       
       
